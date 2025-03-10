@@ -13,12 +13,25 @@ if api_key:
     openai.api_key = api_key
 
 if st.session_state.api_key:
+    genre = st.selectbox(
+        "Select a genre:",
+        ["Fantasy", "Science Fiction", "Mystery", "Romance", "Horror", "Adventure"]
+    )
+    
+    characters = st.text_input("Enter main characters (separate with commas):", 
+                             placeholder="e.g., John, Sarah, Dragon")
+
     if st.button("Generate Story"):
         try:
+            prompt = f"Write me a 600 word {genre} story"
+            if characters:
+                prompt += f" featuring these characters: {characters}"
+            prompt += "."
+
             response = openai.chat.completions.create(
                 model="gpt-4",
                 messages=[
-                    {"role": "system", "content": "Write me a 600 word story about any topic."}
+                    {"role": "system", "content": prompt}
                 ], max_tokens = 1000, temperature = 0.8
             )
             st.write(response.choices[0].message.content)
