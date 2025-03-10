@@ -15,11 +15,11 @@ if api_key:
 if st.session_state.api_key:
     if st.button("Generate Story"):
         try:
-            response = openai.ChatCompletion.create(
+            response = openai.chat.completions.create(
                 model="gpt-4",
                 messages=[
-                    {"role": "user", "content": "Write me a 1000 word story about any topic."}
-                ], max_tokens = 10,000, temperature = 0.8
+                    {"role": "system", "content": "Write me a 1000 word story about any topic."}
+                ], max_tokens = 10000, temperature = 0.8
             )
             st.write(response.choices[0].message.content)
         except Exception as e:
