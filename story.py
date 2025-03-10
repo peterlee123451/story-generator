@@ -18,7 +18,7 @@ if st.session_state.api_key:
             response = openai.chat.completions.create(
                 model="gpt-4",
                 messages=[
-                    {"role": "system", "content": "Write me a 1000 word story about any topic."}
+                    {"role": "system", "content": "Write me a 600 word story about any topic."}
                 ], max_tokens = 10000, temperature = 0.8
             )
             st.write(response.choices[0].message.content)
